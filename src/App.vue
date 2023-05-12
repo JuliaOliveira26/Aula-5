@@ -127,7 +127,10 @@
             img: "Carnival_2023.jpg"
 
            
-          }
+          },
+        
+      
+
         ])
        
         const carrinho = ref({
@@ -165,19 +168,19 @@
             <div class="Menu">
               <ul>
             <li><a href="">Family Cars</a></li>
- 
-            </ul>        </div>
+            
+
+         </ul>       
+           </div>
           </nav>
-            <button @click="carrinho_Compras" class="carrinho">
-              Carrinho
-             
-            </button>
+            <button @click="carrinho_Compras" class="carrinho"> Carrinho</button>
           <div class="produtos">
             <div v-for="(produto, i) in produtos" :key="i" class="card-produto">
               <img :src="produto.img">
               <h2>{{ produto.nome }}</h2>
-              <p> R$ {{ produto.preco.toFixed(2).replace('.',',') }}</p>
+              <p> {{ produto.preco.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}) }}</p>
               <p> Quantidade: {{ produto.quant }}</p>
+              
               <div class="botes">
                 <button @click="adicionarPeca(i)">+</button>
                 <button @click="removerPeca(i)">-</button>
@@ -186,11 +189,24 @@
             </div>
           </div>
           <div>
-            {{ carrinho }}
-          </div>
+            <ul>
+              <li v-for="item in carrinho.items" :key="item.id">
+                <div><p>Nome: {{ item.nome }}</p> 
+                <p>Total:{{item.total}}</p>  
+                <p>Quantidade:{{ item.quant }}</p> 
+                <div class="botuns">
+                <button @click="adicionarPeca(i)">+</button>
+                <button @click="removerPeca(i)">-</button></div>
+                 </div>
+                
+              </li>
+            </ul>
+            
+           </div>
         </template>
        
         <style scoped>
+     
         ul {
         list-style-type: none;
       margin: 0;
@@ -249,7 +265,8 @@ li a:hover {
           grid-auto-rows: 40%;
         }
         .carrinho {
-          width: 8%;
+          width: 100%;
+          height: 100%;
           margin-left: 10%;
           padding: 10px;
           background-color:#232A33;
@@ -258,6 +275,7 @@ li a:hover {
           font-family: 'Times New Roman', Times, serif;
           font-size: 20px;
           transition: all 0.2s;
+          float:inline-end;
 
         }
         .carrinho:hover{
@@ -292,6 +310,8 @@ li a:hover {
         button:hover {
           background-color: #2F4159;
         }
+        
+        
        
         </style>
    
